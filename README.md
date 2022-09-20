@@ -1,3 +1,5 @@
+application based on hexagonal architecture
+
 ## How to run the application
 1. Spin up the containers
 ```bash
