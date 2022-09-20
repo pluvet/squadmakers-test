@@ -1,13 +1,16 @@
 FROM python:3.8.13
 LABEL maintainer="Pedro Ochoa"
 
-RUN pip install poetry
 RUN mkdir -p /app
 
-WORKDIR /app
+RUN pip install poetry
 
-COPY poetry.lock poetry.lock
-COPY pyproject.toml pyproject.toml
-RUN poetry install
+COPY ./pyproject.toml ./poetry.lock* /app/
 
-COPY . .
+WORKDIR /app/
+
+RUN poetry install --no-root
+
+RUN mkdir -p /source
+
+COPY ./source /app/source

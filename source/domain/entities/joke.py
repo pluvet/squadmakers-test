@@ -1,10 +1,7 @@
 from dataclasses import dataclass, field
-from uuid import UUID, uuid4
+from uuid import uuid4
 
 @dataclass
 class Joke():
-    joke: str
-    id: UUID = field(default=UUID)
-
-    def __post_init__(self):
-        self.id = uuid4()
+    value: str
+    id: str = ''

@@ -1,3 +1,3 @@
 import os
 
-ES_HOST_URL = os.getenv("ELASTICSEARCH_HOSTS", default='elasticsearch:9200')
+ES_HOST_URL = os.getenv("ELASTICSEARCH_HOSTS", default='http://elasticsearch:9200')

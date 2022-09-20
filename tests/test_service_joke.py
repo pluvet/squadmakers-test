@@ -1,64 +1,66 @@
-import pytest
 from source.services.joke import JokeService
-from source.adapters.joke import FakeJokeRepository
+from source.adapters.repositories.joke.fake import JokeFakeRepository
+from source.adapters.requests.fake import JokeFakeRequest
 
-@pytest.mark.asyncio
-async def test_save():
-    repo = FakeJokeRepository()
+def test_save():
+    repo = JokeFakeRepository()
 
     joke = "Vampires travel by night because Chuck Norris travels by day."
 
     service = JokeService(repo)
 
-    output = await service.save(joke)
+    output = service.save(joke)
 
     assert isinstance(output, dict)
     
-@pytest.mark.asyncio
-async def test_get():
-    repo = FakeJokeRepository()
-
-    joke = "Vampires travel by night because Chuck Norris travels by day."
+def test_get():
+    repo = JokeFakeRepository()
 
     service = JokeService(repo)
 
-    output = await service.get(joke)
+    output = service.get()
 
     assert isinstance(output, dict)
     
-@pytest.mark.asyncio
-async def test_find():
-    repo = FakeJokeRepository()
+def test_find():
+    repo = JokeFakeRepository()
 
-    joke = "Vampires travel by night because Chuck Norris travels by day."
+    value = "Chuck"    
 
-    service = JokeService(repo)
+    service = JokeService(repo, JokeFakeRequest)
 
-    output = await service.find(joke)
+    output = service.find(id=value)
 
     assert isinstance(output, dict)
     
-@pytest.mark.asyncio
-async def test_update():
-    repo = FakeJokeRepository()
+def test_update():
+    repo = JokeFakeRepository()
 
     joke = "Vampires travel by night because Chuck Norris travels by day."
 
     service = JokeService(repo)
 
-    output = await service.update(joke)
+    output = service.update(id=1, value=joke)
 
     assert isinstance(output, dict)
 
-async def test_delete():
-    repo = FakeJokeRepository()
-
-    joke = "Vampires travel by night because Chuck Norris travels by day."
+def test_delete():
+    repo = JokeFakeRepository()
 
     service = JokeService(repo)
 
-    output = await service.delete(joke)
-
+    output = service.delete(id=1)
+    
     assert not output
     
+def test_search():
+    repo = JokeFakeRepository()
+    
+    service = JokeService(repo)
+
+    search = "Vampires travel by night because Chuck Norris travels by day."
+
+    output = service.search(search)
+
+    assert isinstance(output, list)
 
